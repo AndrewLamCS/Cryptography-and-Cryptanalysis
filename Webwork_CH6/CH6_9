@@ -1,0 +1,65 @@
+def gcd(a, b):
+    while b != 0:
+        a, b = b, a % b
+    return a
+
+def euler_totient(n):
+    count = 0
+    for i in range(1, n + 1):
+        if gcd(i, n) == 1:
+            count += 1
+    return count
+
+def mod_exp(a, n, m):
+    result = 1
+    while n > 0:
+        if n % 2 == 1:
+            result = (result * a) % m
+        a = (a * a) % m
+        n //= 2
+    return result
+
+def extended_gcd(a, b):
+    s0, t0 = 1, 0
+    s1, t1 = 0, 1
+
+    while b != 0:
+        quotient = a // b
+        a, b = b, a - quotient * b
+        s0, s1 = s1, s0 - quotient * s1
+        t0, t1 = t1, t0 - quotient * t1
+
+    return a, s0, t0
+
+def mod_inverse(a, n):
+    gcd, s, t = extended_gcd(a, n)
+    if gcd == 1:
+        return s % n
+    return None
+
+# Part a
+n = 654
+phi_n = euler_totient(n)
+print("𝜑(654) =", phi_n)
+
+# Part b
+a = 107
+n = 242
+result_b = mod_exp(a, 110, n)
+print("107^110 ≡", result_b, "mod", n)
+
+# Part c
+a = 43
+n = 276
+mod_inv = mod_inverse(a, n)
+result_c = (43 * mod_exp(a, 87, n)) % n
+print("43^(-1) ≡", mod_inv, "mod", n)
+print("43^87 ≡", result_c, "mod", n)
+
+# Part d
+a = 181
+n = 472
+result_d = mod_exp(a, 234, n)
+print("181^234 ≡", result_d, "mod", n)
+
+

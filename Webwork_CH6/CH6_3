@@ -1,0 +1,14 @@
+#DLP
+
+def main():
+    p = 1279
+    g = 5
+    r = 652
+    es = []
+
+    for e in range(p):
+        if (g**e) % p == r:
+            es.append(e)
+            
+    print(es)
+main()

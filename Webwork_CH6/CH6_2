@@ -1,0 +1,35 @@
+#CH6_2 FACTORIZATION
+
+from math import sqrt
+
+#A function to print all prime factors of a given number n
+
+def primeFactors(n):
+    ps = []
+    
+    #Print the number of two's that divide n
+    while (n % 2) == 0:
+        p = 2
+        ps.append(p)
+        n = n / p
+    
+    #n must be odd at this point
+    #so a skip of 2 (i = i + 2) can be used, only odd numbers
+    sqrt_n = int(sqrt(n))+1
+    for p in range(3, sqrt_n, 2):
+        while (n % p) == 0:     #While p divides n, record p in list
+            ps.append(p)
+            n = n / p
+        
+    #Condition if n is a prime number greater than sqrt_n
+
+    if n > sqrt_n - 1:
+        p = n
+        ps.append(p)
+    return ps
+
+def main():
+    n = 3550
+    ps1 = primeFactors(n)
+    print("\nPrime Factorization of n = %d is " %(n), ps1)
+main()

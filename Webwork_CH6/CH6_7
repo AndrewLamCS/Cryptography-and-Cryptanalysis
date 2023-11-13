@@ -1,0 +1,28 @@
+def extended_gcd(a, b):
+    s0, t0 = 1, 0
+    s1, t1 = 0, 1
+
+    while b != 0:
+        quotient = a // b
+        a, b = b, a - quotient * b
+        s0, s1 = s1, s0 - quotient * s1
+        t0, t1 = t1, t0 - quotient * t1
+
+    return a, s0, t0
+
+def inverse_modulo(a, n):
+    gcd, s, t = extended_gcd(a, n)
+    if gcd == 1:
+        return s % n
+    return None
+
+# Given values
+moduli = [507, 937, 349, 916]
+numbers = [272, 467, 343, 419]
+
+# Compute the inverses
+inverses = [inverse_modulo(numbers[i], moduli[i]) for i in range(len(numbers))]
+
+# Print the results
+for i in range(len(numbers)):
+    print(f"Modulo {moduli[i]}, {numbers[i]}^-1 ≡ {inverses[i]}")

@@ -1,0 +1,58 @@
+def modular_exponentiation(base, exponent, modulus):
+    result = 1
+    base = base % modulus
+
+    while exponent > 0:
+        if exponent % 2 == 1:
+            result = (result * base) % modulus
+        exponent = exponent // 2
+        base = (base * base) % modulus
+
+    return result
+
+def chinese_remainder_theorem(x, d, N, p, q):
+    xp = x % p
+    xq = x % q
+    dp = d % (p - 1)
+    dq = d % (q - 1)
+    yp = modular_exponentiation(xp, dp, p)
+    yq = modular_exponentiation(xq, dq, q)
+
+    cp = pow(q, -1, p)
+    cq = pow(p, -1, q)
+
+    y = (q * cp * yp + p * cq * yq) % N
+    return y
+
+x = 826
+d = 8813
+N = 22331
+p = 163
+q = 137
+
+xp = x % p
+xq = x % q
+dp = d % (p - 1)
+dq = d % (q - 1)
+yp = modular_exponentiation(xp, dp, p)
+yq = modular_exponentiation(xq, dq, q)
+
+cp = pow(q, -1, p)
+cq = pow(p, -1, q)
+
+y = chinese_remainder_theorem(x, d, N, p, q)
+
+print("Step 1:")
+print("x_p:", xp)
+print("x_q:", xq)
+print("\nStep 2:")
+print("d_p:", dp)
+print("d_q:", dq)
+print("\nStep 3:")
+print("y_p:", yp)
+print("y_q:", yq)
+print("\nStep 4:")
+print("c_p:", cp)
+print("c_q:", cq)
+print("\nFinal Result:")
+print("y:", y)

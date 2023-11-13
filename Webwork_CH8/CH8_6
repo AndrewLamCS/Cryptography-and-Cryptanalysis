@@ -1,0 +1,15 @@
+#Discrete Logarithm Problem
+
+def dlp(p,g,r):
+    for i in range(p):
+        if (g ** i) % p == r:
+            return i
+
+def main():
+    p = 211 #211 (MOD)
+    g = 2 #2 (base)
+    r = 146 #124 (equivalent)
+    e = dlp(p,g,r)
+    print("\ne= ", e) #(exponent)
+
+main()

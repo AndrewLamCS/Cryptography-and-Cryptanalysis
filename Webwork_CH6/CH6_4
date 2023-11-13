@@ -1,0 +1,13 @@
+#CH6_4 EUCLIDEAN ALGORITHM
+
+def euclideanAlgorithm(a,b):
+    while b:
+        a, b = b, a % b
+    return a
+
+def main():
+    print(euclideanAlgorithm(316994511,358185788),end = "\n")
+    print(euclideanAlgorithm(34525906,124158455))
+
+
+main()

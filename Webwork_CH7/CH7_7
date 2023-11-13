@@ -1,0 +1,46 @@
+def modular_exponentiation(base, exponent, modulus):
+    result = 1
+    base = base % modulus
+
+    while exponent > 0:
+        if exponent % 2 == 1:
+            result = (result * base) % modulus
+        exponent = exponent // 2
+        base = (base * base) % modulus
+
+    return result
+
+def fermat_primality_test(a, n):
+    if a == 0 or a == 1 or a == n - 1:
+        return False
+
+    result = modular_exponentiation(a, n - 1, n)
+    return result == 1
+
+def find_fermat_liar_witness(n):
+    fermat_liar = None
+    fermat_witness = None
+
+    for a in range(2, n - 1):
+        if fermat_primality_test(a, n):
+            fermat_liar = a
+            break
+
+    for a in range(2, n - 1):
+        if not fermat_primality_test(a, n):
+            fermat_witness = a
+            break
+
+    return fermat_liar, fermat_witness
+
+n = 3550
+fermat_liar, fermat_witness = find_fermat_liar_witness(n)
+print("a) First Fermat Liar in ℤ403:", fermat_liar)
+print("b) First Fermat Witness in ℤ403:", fermat_witness)
+
+fermat_liars_count = 0
+for a in range(2, n - 1):
+    if fermat_primality_test(a, n):
+        fermat_liars_count += 1
+
+print("c) Number of Fermat Liars in ℤ403:", fermat_liars_count)

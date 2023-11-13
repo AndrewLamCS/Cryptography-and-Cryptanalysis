@@ -1,0 +1,23 @@
+def decrypt_rsa(encrypted_message, private_key):
+    N, d = private_key
+    decrypted_message = (encrypted_message ** d) % N
+    return decrypted_message
+
+# Given parameters
+N = 14351
+e = 5
+d = 5645
+
+# Encrypted messages to decrypt
+encrypted_message1 = 9206
+encrypted_message2 = 7382
+
+# Private key (N, d)
+private_key = (N, d)
+
+# Decrypt messages
+decrypted_message1 = decrypt_rsa(encrypted_message1, private_key)
+decrypted_message2 = decrypt_rsa(encrypted_message2, private_key)
+
+print("Decrypted message 1:", decrypted_message1)
+print("Decrypted message 2:", decrypted_message2)

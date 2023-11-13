@@ -1,0 +1,77 @@
+def power_mod(base, exponent, modulus):
+    result = 1
+    while exponent > 0:
+        if exponent % 2 == 1:
+            result = (result * base) % modulus
+        base = (base * base) % modulus
+        exponent //= 2
+    return result
+
+def miller_rabin_test(n, a):
+    if n % 2 == 0:
+        return False  # Miller-Rabin test is not valid for even n
+
+    u = 0
+    r = n - 1
+    while r % 2 == 0:
+        u += 1
+        r //= 2
+
+    x = power_mod(a, r, n)
+    if x == 1 or x == n - 1:
+        return True
+
+    for _ in range(u - 1):
+        x = (x * x) % n
+        if x == n - 1:
+            return True
+        if x == 1:
+            return False
+
+    return False
+
+def analyze_miller_rabin_result(result_list):
+    if -1 in result_list and 1 in result_list[result_list.index(-1) + 1:]:
+        return 3  # The value -1 followed by 1 occurred
+
+    if 1 in result_list and -1 not in result_list:
+        return 2  # 1 occurred but not preceded by -1
+
+    return 1  # None of the above conditions satisfied
+
+# Given values
+n = 2665
+a = 122
+
+# Calculate the values of u and r
+u = 0
+r = n - 1
+while r % 2 == 0:
+    u += 1
+    r //= 2
+
+# Calculate the list of values for Miller-Rabin test
+results = [power_mod(a, r, n)]
+for i in range(1, u + 1):
+    results.append(power_mod(a, 2 ** i * r, n))
+
+# Analyze the Miller-Rabin test results
+analysis_result = analyze_miller_rabin_result(results)
+
+# Determine the conclusion based on the analysis result
+conclusion = ""
+if analysis_result == 1:
+    conclusion = "𝑛 is prime."
+elif analysis_result == 2:
+    conclusion = "𝑛 is composite."
+elif analysis_result == 3:
+    conclusion = "The test is inconclusive."
+
+print("Values of u and r:", u, r)
+print("Results list:", results)
+print("Analysis result:", analysis_result)
+print("Conclusion:", conclusion)
+
+
+
+

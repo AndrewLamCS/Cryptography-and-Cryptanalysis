@@ -1,0 +1,25 @@
+#CH7_2 SQUARE AND MULTIPLY
+
+def powmod_sm(base, exp, n):
+    exp_b = bin(exp)
+    value = base
+
+    for i in range(3,len(exp_b)):
+        value = (value ** 2) % n
+        if(exp_b[i:i+1] == '1'):
+            value = (value * base) % n
+    return exp_b, value
+
+
+def main():
+    n = 893     #18857
+    e = 5
+    d = 497     #14861
+    y = 418     #11097 #18267
+    d_b, x = powmod_sm(y, d, n)
+
+    print("\nExponent in binary = ", d_b)
+
+    print("\nExponentiation using Square and Multiply Algorithm = ", x)
+
+main()

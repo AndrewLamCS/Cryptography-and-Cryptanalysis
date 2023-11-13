@@ -1,0 +1,36 @@
+def square_and_multiply(base, exponent, modulus):
+    binary_exponent = bin(exponent)[2:]  # Convert exponent to binary string, remove '0b' prefix
+    result = 1
+
+    for bit in binary_exponent:
+        result = (result ** 2) % modulus
+        if bit == '1':
+            result = (result * base) % modulus
+
+    return result
+
+# Given parameters
+N = 34081
+d = 22475
+y = 2982
+
+# Step a) Convert 𝑑 into binary string
+binary_d = bin(d)[2:]
+
+# Step b) Perform the Square and Multiply operations
+operations = []
+r = y
+
+for bit in binary_d:
+    operations.append("SQ")
+    r = (r ** 2) % N
+    if bit == '1':
+        operations.append("MUL")
+        r = (r * y) % N
+
+# Step c) Compute the result 𝑥 = 𝑦𝑑 mod 𝑁
+x = square_and_multiply(y, d, N)
+
+print("Binary representation of 𝑑:", binary_d)
+print("Order of operations:", ','.join(operations))
+print("Result 𝑥 =", x)

@@ -1,0 +1,22 @@
+def encrypt_rsa(message, public_key):
+    N, e = public_key
+    encrypted_message = (message ** e) % N
+    return encrypted_message
+
+# Given public parameters
+N = 11269
+e = 3
+
+# Messages to encrypt
+message1 = 1373
+message2 = 1096
+
+# Public key (N, e)
+public_key = (N, e)
+
+# Encrypt messages
+encrypted_message1 = encrypt_rsa(message1, public_key)
+encrypted_message2 = encrypt_rsa(message2, public_key)
+
+print("Encrypted message 1:", encrypted_message1)
+print("Encrypted message 2:", encrypted_message2)

@@ -1,0 +1,19 @@
+#CH6_5 EXTENDED EUCLIDEAN ALGORITHM
+
+def extendedEA(a,b):
+    x, old_x = 0,1
+    y, old_y = 1,0
+    z, old_z = b,a
+
+    while z != 0:
+        q = old_z //z
+        old_z, z = z, old_z - q * z
+        old_x, x = x, old_x - q * x
+        old_y, y = y, old_y - q * y
+    return f"GCD: {old_z}, s: {old_x}, t: {old_y}"
+
+def main():
+    print(extendedEA(47,31),end = "\n")
+
+
+main()

@@ -1,0 +1,23 @@
+def extended_gcd_sequence(r0, r1):
+    sequence = []
+    s0, t0 = 1, 0
+    s1, t1 = 0, 1
+
+    while r1 != 0:
+        quotient, remainder = divmod(r0, r1)
+        sequence.append((r0, s0, t0))
+        
+        r0, r1 = r1, remainder
+        s0, s1 = s1, s0 - quotient * s1
+        t0, t1 = t1, t0 - quotient * t1
+    
+    sequence.append((r0, s0, t0))
+    return sequence
+
+r0 = 93
+r1 = 34
+
+sequence = extended_gcd_sequence(r0, r1)
+final_r, final_s, final_t = sequence[-1]
+print(f"Final r = {final_r}, Final s = {final_s}, Final t = {final_t}")
+
